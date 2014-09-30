@@ -1,0 +1,77 @@
+<% if @feed.count != 0 %>
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <% @feed.each do |news| %>
+    <li data-target="#carousel-example-generic" data-slide-to="0"></li>
+    <% end %>
+  </ol>
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner">
+  
+
+    <% article = @feed.first %>
+
+    <div class="item active" style="height: 300px; z-index: 10">
+    <center><img src= <%= @feed.first.image %> style="height: 300px; text-align: right;"></center> 
+      <div class="carousel-caption" style="text-align: right">
+      <% article = @feed.first %>
+      <% if @feed.first.has_attribute?("album_id") %>
+      <a href= "<%= article_path(article) %>" class="ajax_link">
+        <h1><mark>"<%= @feed.first.album.title %>"</mark></h1>
+        <h2><mark><%= @feed.first.artist.name %></mark></h2>
+        <h3><mark>Written by <%= @feed.first.author %></mark></h3>
+        <p><mark><%= truncate(@feed.first.content, length: 200) %></mark></p>
+      </a>
+
+      <% else %>
+
+      <a href= "<%= concert_review_path(article) %>" class="ajax_link">
+        <h1><mark><%= @feed.first.title %> AHH"</mark></h1>
+        <h2><mark><%= @feed.first.artist.name %></mark></h2>
+        <h3><mark>Written by <%= @feed.first.author %></mark></h3> 
+        <p><mark><%= truncate(@feed.first.content, length: 200) %></mark></p>
+      </a>
+
+      <% end %>
+      </div>   
+      </div>
+   
+
+    
+
+    <% @feed.delete_at(0) %>
+
+    <% @feed.each do |article| %>
+    <div class="item" style="z-index: 10">
+      <center><img src=<%=article.image%> style="height: 300px"></center>
+      <div class="carousel-caption" style="text-align: right">
+      <% if article.has_attribute?("album_id") %>
+      <a href= "<%= article_path(article) %>" class="ajax_link">
+      	<h1><mark>"<%= article.album.title %>"</mark></h1>
+      	<h2><mark><%= article.artist.name %></mark></h2>
+      	<h3><mark>Written by <%= article.author %></mark></h3>
+        <p><mark><%= truncate(article.content, length: 200) %></mark></p>
+      </a>
+      <% else %>
+      <a href= "<%= concert_review_path(article) %>" class="ajax_link">
+        <h1><mark>"<%= article.title %>"</mark></h1>
+        <h2><mark><%= article.artist.name %></mark></h2>
+        <h3><mark>Written by <%= article.author %></mark></h3> 
+        <p><mark><%= truncate(article.content, length: 200) %></mark></p>
+        <% end %>
+      </a>
+      </div>
+    </div>
+    <% end %>
+   </div>
+  <!-- Controls -->
+  <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev" style="z-index: 20">
+    <span class="glyphicon glyphicon-chevron-left"></span>
+  </a>
+  <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next" style="z-index: 20">
+    <span class="glyphicon glyphicon-chevron-right"></span>
+  </a>
+</div>
+<% end %>

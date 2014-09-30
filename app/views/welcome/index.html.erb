@@ -1,0 +1,252 @@
+
+<!-- Refreshing the Currently Playing -->
+<script>
+function makeAjaxCall() {
+
+  $.get(document.URL, function(resp) { 
+  $('#refreshable').html(resp);
+ });
+}
+
+
+
+$(document).ready(function() {
+
+  setInterval(function(){ makeAjaxCall(); }, 50000);
+
+   });
+
+</script>
+
+
+<!--Rotating the Vinyl -->
+<script>
+$(function() {
+    var $elie = $("#currently_playing"), degree = 0, timer;
+    rotate();
+    function rotate() {
+        
+        $elie.css({ WebkitTransform: 'rotate(' + degree + 'deg)'});  
+        $elie.css({ '-moz-transform': 'rotate(' + degree + 'deg)'});                      
+        timer = setTimeout(function() {
+            ++degree; rotate();
+        },50);
+    }
+
+}); 
+
+
+
+</script>
+
+<style>
+
+body {
+    background-image: url(/assets/background2.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+
+}
+
+a:link
+{
+  color: black;
+}
+</style>
+
+
+<!-- Showing Article as floating html-->
+<script type="text/javascript">
+  $(document).ready(function() {
+  $('.ajax_link').click(function(event) {
+  event.preventDefault();
+  var url = $(this).attr('href');
+  $.get(url, function(htmloutput) {
+  $('#article_show').html(htmloutput);
+  $('#modal_article').modal('show');
+  });
+
+  });
+  });
+</script>
+
+<div class="modal fade" id="modal_article" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+  <div class="modal-content">
+  
+  <div class="modal-body">
+  <div id="article_show"></div>
+  </div>
+  
+  <div class="modal-footer">
+  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+  </div>
+  
+  </div>
+  </div>
+</div>
+
+
+
+
+<style>
+
+#DJicon img
+{
+  height: 250px;
+}
+
+#title
+{
+  font-family: 'Permanent Marker', cursive !important
+}
+</style>
+
+
+<link href='http://fonts.googleapis.com/css?family=Permanent+Marker' rel='stylesheet' type='text/css'>
+
+
+
+    <div class="container">
+    <div class ="row" style="color: white; font-size: 100px;">
+    <center><div id = "title">UCLA RADIO</div></center>
+        </div>
+
+      <div class="row">
+
+        <div class="col-lg-4">
+          <div style="background-color:rgba(255, 255, 255, 0.8); text-align: right; height: 700px; border-radius: 10px; margin-top: 10px; border:  white 5px; padding-top: 5px;">
+            <center><h2>What's New</h2></center>
+            <% @newsfeed.each do |status| %>
+
+            <!-- IF THE STATUS is an ALBUM review -->
+              <% if status.has_attribute?("album_id")%>
+              <centeR>
+                <% if status.approval == true %>
+                <a href= "<%= article_path(status) %>" class="ajax_link">
+                  <h3><%= status.album.title %></h3>
+                  <img src = <%= status.image %> width=200px> 
+                  <h5 >Reviewed By <%= status.author %> </h5>
+                  <h6><%= status.created_at.strftime(' %m/%d') %></h6>
+                </a>
+                <% end %>
+                </centeR>
+
+              <!-- IF SHOW review -->
+              <%elsif  status.has_attribute?("location") %>
+              <center>
+                <% if status.approval == true %>
+                <a href= "<%= concert_review_path(status) %>" class="ajax_link">
+                  <h3><%= status.title %></h3>
+                  <img src = <%= status.image %> width=200px> 
+                  <h5>Reviewed By <%= status.author %> </h5>
+                  <h6><%= status.created_at.strftime(' %m/%d') %></h6>
+                </a>
+                <% end %>
+                </center>
+
+
+              <!--IF PRESS RELEASE-->
+              <% else %>
+              <a href="<%= news_path(status) %>" class="ajax_link">
+              <center>
+              <div style=" background: -webkit-linear-gradient(top,#1eb2df, #17a7d2); color: white; box-shadow: 0px 3px 1px yellow, 0px -3px 1px yellow;">
+                <h3> <%= status.title %></h3>
+                <h6><%= status.created_at.strftime(' %m/%d') %></h6>
+              </div>
+              </center>
+              </a>
+
+
+
+
+              <% end %>
+            <% end %>
+            </ul>
+          </div><!--/.well -->
+        </div><!--/span-->
+
+
+
+        
+<!--button for playing radio-->
+<script>
+function myFunction() {
+    var myWindow = window.open("http://stream.uclaradio.com:8000/listen", "http://stream.uclaradio.com:8000/listen", "width=200, height=100");
+}
+</script>
+
+
+
+
+
+
+
+<div class="col-lg-4" style="margin-top: 30px">
+<center>
+<button style="border: none; background-color: transparent" onclick="myFunction()" class="play_border">
+    <div id = "wrap" style = "height: 350px; width: 350px; margin-left: -5px; margin-top: -2px;">
+
+    <div id = "currently_playing" style="border-style: transparent; border-radius: 100%; height: 350px; width: 350px; padding-top: 35px; background-image: url(<%= asset_path 'vinyl.png' %>); float: center; z-index: -5; position: absolute">
+    </div>
+
+
+
+<!--padding top : how far the text is from the border of the disc -->
+<div id = "refreshable" style = "padding-top: 50px; color: yellow; margin-left: auto; margin-right: auto; border-radius: 100%">
+
+<%= render :partial => 'refresh' %>
+
+
+</div>
+
+
+
+</div>
+
+</button>
+</center>
+
+<div id = "request" style="margin-top: 20px"><center><%= render :partial => 'requests/form' %> </center></div>
+
+</div>
+
+
+<!-- Ucla's Radio
+
+
+-->
+
+
+
+      <div class="col-lg-4">
+      <div style="background-color:rgba(255, 255, 255, 0.7); height: 700px; border-radius: 10px; margin-top: 10px; border: white 5px; padding: 5px">
+            <center><h2>Recent Tracks</h2></center>
+            <center>
+            <table>
+              <% @recent_tracks.each do |t|%>
+                <tr><td><center> "<%=t.title%>" <b><%=t.artist %></b> <br /> <%= t.created_at.strftime('%l:%M %p %m/%d') %><br />  </center></td></tr>
+              <% end %>
+            </table>
+            </center>
+  
+          </div>
+        </div>
+        </div>
+      </div><!--/row-->
+
+
+    </div> <!-- /container -->
+
+
+
+
+
+
+
+
+<!-- <video controls="" height = "10" name="media"><source src="http://stream.uclaradio.com:8000/listen" type="audio/mpeg"></video> -->
+
+

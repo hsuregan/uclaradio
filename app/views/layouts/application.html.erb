@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= content_for?(:title) ? yield(:title) : "DJ" %></title>
+    <%= csrf_meta_tags %>
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js" type="text/javascript"></script>
+    <![endif]-->
+<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400' rel='stylesheet' type='text/css'>
+<style>
+*
+{
+font-family: 'Source Sans Pro', sans-serif;
+}
+</style>
+
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+  $('.ajax_link').click(function(event) {
+  event.preventDefault();
+  var url = $(this).attr('href');
+  $.get(url, function(htmloutput) {
+  $('#article_show').html(htmloutput);
+  $('#modal_article').modal('show');
+  });
+
+  });
+  })
+</script>
+
+<div class="modal fade" id="modal_article" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+  <div class="modal-content">
+  
+  <div class="modal-body">
+  <div id="article_show"></div>
+  </div>
+  
+  <div class="modal-footer">
+  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+  </div>
+  
+  </div>
+  </div>
+</div>
+
+
+    <%= stylesheet_link_tag "application", :media => "all" %>
+
+    <!-- For third-generation iPad with high-resolution Retina display: -->
+    <!-- Size should be 144 x 144 pixels -->
+    <%= favicon_link_tag 'apple-touch-icon-144x144-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '144x144' %>
+
+    <!-- For iPhone with high-resolution Retina display: -->
+    <!-- Size should be 114 x 114 pixels -->
+    <%= favicon_link_tag 'apple-touch-icon-114x114-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '114x114' %>
+
+    <!-- For first- and second-generation iPad: -->
+    <!-- Size should be 72 x 72 pixels -->
+    <%= favicon_link_tag 'apple-touch-icon-72x72-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '72x72' %>
+
+    <!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+    <!-- Size should be 57 x 57 pixels -->
+    <%= favicon_link_tag 'apple-touch-icon-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png' %>
+
+    <!-- For all other devices -->
+    <!-- Size should be 32 x 32 pixels -->
+    <%= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %>
+
+    <%= javascript_include_tag "application" %>
+  </head>
+  <body>
+
+
+
+
+
+
+
+    <div class="row" style = "font-size: 10px;">
+      <div class="col-lg-12">
+         <div class="navbar navbar-default navbar-fixed-top" style="background-color:rgba(255, 255, 255, 0.85); margin-right: -20px;
+box-shadow: 0 16px 8px -8px black;
+
+
+         " >
+          <div class="container" >
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            <div class="navbar-collapse collapse navbar-responsive-collapse" >
+
+
+            <div id = "bar" >
+              <ul class="nav navbar-nav">
+
+                <li>
+                  <a href="<%= root_path %>"> <%= image_tag("dj.svg") %> <p>Home</p> </a>
+                </li>
+
+                <li>
+                  <a href="/critics"><%= image_tag("search92.svg") %> <p>Critics</p></a>
+                </li>
+
+                <li>
+                  <a href="/reviews" class = "ajax_link"><%= image_tag("teacher35.svg") %><p>Review</p></a>
+                </li>
+
+
+                <% if (current_user != nil && current_user.admin == true) || User.count == 0 %>
+                  <li>
+                    <a href="/users/new"><%= image_tag("create1.svg") %><p>User!</p></a>
+                  </li>
+                <%end%>
+
+                <% if current_user != nil && current_user.admin %>
+                  <li>
+                    <a href="/news/new"><%= image_tag("newspaper8.svg") %><p>Print</p></a>
+                  </li>
+                <% end %>
+
+                <% if current_user %>
+                  <li>
+                    <a href="/requests"><%= image_tag("student37.svg") %><p>Requests</p></a>
+                  </li>
+                <% end %>
+
+                <% if current_user == nil %>
+                <li>
+                  <a href="/sessions/new" class = "ajax_link"><%= image_tag("incoming4.svg") %><p>Login</p></a>
+                </li>
+                <% end %>
+
+
+                <% if current_user %>
+                <li>
+                  <a data-method="delete" href="/sessions/current" rel="nofollow"><img alt="Outcoming1" src="/assets/outcoming1.svg" /><p>Logout</p></a>
+                </li>
+                <%end%>
+
+
+
+              </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+   
+
+   <div class = "container">
+      <div class="row">
+          <div class="col-lg-12">
+          <%= bootstrap_flash %>
+          <%= yield %>
+        </div>
+      </div>
+   </div>
+
+
+<div class="row">
+      <footer>
+        <center><p>&copy; UCLARadio 2014</p></center>
+      </footer>
+      </div>
+
+
+
+
+  </body>
+</html>

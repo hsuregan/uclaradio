@@ -1,0 +1,70 @@
+/*
+  =require twitter-bootstrap-static/bootstrap
+
+  Use Font Awesome icons (default)
+  To use Glyphicons sprites instead of Font Awesome, replace with "require twitter-bootstrap-static/sprites"
+  =require twitter-bootstrap-static/fontawesome
+  */
+  /* change base */
+body
+{
+}
+
+@font-face {
+    font-family: 'Glyphicons Halflings';
+    src: url('/assets/glyphicons-halflings-regular.eot');
+    src: url('/assets/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('/assets/glyphicons-halflings-regular.woff') format('woff'), url('/assets/glyphicons-halflings-regular.ttf') format('truetype'), url('/assets/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');
+}
+
+
+
+#currently_playing
+{
+  background-image: url(/assets/imagesvinyl.png);
+
+}
+
+
+.navbar {
+    font-size: 15px;
+    background-color: transparent;
+    border: transparent;
+}
+
+.navbar .navbar-nav {
+  display: inline-block;
+  border-color: black;
+  float: none;
+  vertical-align: top;
+}
+
+#bar ul li{
+  background-color: transparent;
+  height: 70px;
+
+}
+
+#bar ul li:hover {
+}
+
+.navbar .nav > li > a {
+    float: none;
+    color:  transparent;
+}
+
+.navbar .nav > li:hover > a img {
+
+ background-color: yellow;
+ border-radius: 100%;
+ transition: background-color 1s ease;
+}
+
+.navbar .nav > li > a:hover {
+	color: gray;
+	transition: color .5s ease, visibility .5s ease, display .5s ease;
+}
+
+
+.navbar .navbar-collapse {
+  text-align: center;
+}

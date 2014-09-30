@@ -1,0 +1,86 @@
+
+
+<%= form_for @article do |f| %>
+  <div class="control-group">
+   
+   <div class="col-lg-6">
+
+    <%= f.label :Critic %>
+    <div class="controls">
+    <%= f.text_field :author, class: "form-control" %>
+    </div>
+
+    <%= f.label :email %>
+    <div class="controls">
+    <%= f.text_field :email, class: "form-control" %>
+    </div>
+  
+
+  <% if @article.new_record? %>
+    <%= f.label :artist %>
+    <div class="controls">
+      <%= text_field(:artist, :name, :class => "form-control") %>
+    </div>
+    
+    <%= f.label :album %>
+    <div class="controls">
+      <%= text_field(:album, :title, :class => "form-control") %>
+    </div>
+
+    <%= f.label :album %> Genre
+    <div class="controls">
+      <%= text_field(:album, :genre, :class => "form-control") %>
+    </div>
+    
+    <%= f.label :year %> Released
+    <div class="controls">
+      <%= number_field(:album, :year, :class => "form-control") %>
+    </div>
+
+    <% end %>
+
+
+    <%= f.label :rating %> 0 to 10
+    <div class="controls"> 
+          <%= f.number_field :rating, :in => 0.0..10.0, class: "form-control" %>
+    </div>
+
+    <%= f.label :image %> URL
+    <div class="controls">
+    <%= f.text_field :image, class: "form-control" %>
+    </div>
+  
+   </div>
+
+  <div class="col-lg-6">
+    <div class="control-group">
+      <%= f.label :content %>
+      <div class="controls">
+        <%= f.text_area :content, rows: "22", cols: "50", class: "form-control" %>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-lg-12">
+    <div class="form-actions">
+    <br />
+    <center>
+    <%= f.submit nil, class: "btn btn-primary" %>
+    <%= link_to 'Cancel', articles_path, class: "btn btn-primary" %>
+    </center>
+    </div>
+    </div>
+
+
+
+
+
+  </div>
+
+
+<% end %>
+
+
+
