@@ -1,0 +1,47 @@
+<style>
+#dynamicheight
+{
+    width: 80%;
+    
+    /* Just for looks: */
+    background-color: cornflowerblue;
+    margin-top: 40px;
+    z-index: -5;
+    position: relative;
+    border-radius: 100%;
+    background-image: url(<%= asset_path 'vinyl.png' %>)
+}
+</style>
+
+<script>
+$(function() {
+    var div = $('#dynamicheight');
+    var width = div.width();
+    
+    div.css('height', width);
+});
+</script>
+
+
+
+<center>
+<button onclick="myFunction()" class="play_border" style="margin-left: auto; margin-right: auto; background-color: transparent;">
+
+
+<center>
+<div id = "refreshable" >
+<%= render :partial => 'refresh' %>
+</div>
+
+</center>
+
+
+    <!--padding top : how far the text is from the border of the disc -->
+
+
+
+
+
+</button>
+
+</center>

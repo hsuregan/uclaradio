@@ -12,7 +12,7 @@ function makeAjaxCall() {
 
 $(document).ready(function() {
 
-  setInterval(function(){ makeAjaxCall(); }, 50000);
+  setInterval(function(){ makeAjaxCall(); }, 5000);
 
    });
 
@@ -22,7 +22,7 @@ $(document).ready(function() {
 <!--Rotating the Vinyl -->
 <script>
 $(function() {
-    var $elie = $("#currently_playing"), degree = 0, timer;
+    var $elie = $("#spin"), degree = 0, timer;
     rotate();
     function rotate() {
         
@@ -34,6 +34,7 @@ $(function() {
     }
 
 }); 
+
 
 
 
@@ -179,35 +180,10 @@ function myFunction() {
 </script>
 
 
+<div class="col-lg-4">
 
+<%= render :partial => 'button' %>
 
-
-
-
-<div class="col-lg-4" style="margin-top: 30px">
-<center>
-<button style="border: none; background-color: transparent" onclick="myFunction()" class="play_border">
-    <div id = "wrap" style = "height: 350px; width: 350px; margin-left: -5px; margin-top: -2px;">
-
-    <div id = "currently_playing" style="border-style: transparent; border-radius: 100%; height: 350px; width: 350px; padding-top: 35px; background-image: url(<%= asset_path 'vinyl.png' %>); float: center; z-index: -5; position: absolute">
-    </div>
-
-
-
-<!--padding top : how far the text is from the border of the disc -->
-<div id = "refreshable" style = "padding-top: 50px; color: yellow; margin-left: auto; margin-right: auto; border-radius: 100%">
-
-<%= render :partial => 'refresh' %>
-
-
-</div>
-
-
-
-</div>
-
-</button>
-</center>
 
 <div id = "request" style="margin-top: 20px"><center><%= render :partial => 'requests/form' %> </center></div>
 

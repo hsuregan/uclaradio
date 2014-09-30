@@ -1,7 +1,7 @@
 <% if @allowed_time > @time %>
 <!-- Regan's Radio Show -->
     <div id = "box" style="margin-left: auto; margin-right: auto">
-      <center><strong><%=@track.artist %></strong> <br />  "<%= @track.title %>"</center>
+      <center> <mark> "<%= @track.title %>" </mark></center>
     </div>
 
     <% if @item_array_size != 0 %>
@@ -9,11 +9,7 @@
     <% end %>
   
 
-    <center>
-      <% if @track.album != "" %>
-          <div id = "box" style="width: 150px"><p><em><%= @track.album %></em></p></div>
-      <% end %>
-    </center>
+      <center><mark><strong><%=@track.artist %></strong></mark></center>
 
       <% else %>
         <center><div id = "DJicon"><%= image_tag("press.svg") %></div></center>
