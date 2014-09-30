@@ -11,7 +11,7 @@ class RequestsController < ApplicationController
 
 
   def create
-  	@request = Request.new()
+  	@request = Request.new(request_params)
   	if @request.save
       #UserMailer.recieved_request(@request.email).deliver
     	redirect_to root_path, notice: "An Email Confirmation Was Sent To You.  Reply 'Approve' To Authenticate Request."
