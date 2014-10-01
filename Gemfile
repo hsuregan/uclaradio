@@ -56,5 +56,7 @@ group :production do
       gem 'rails_12factor'
     end
 
+ gem 'taps', '~> 0.3.24'
+
 
 
