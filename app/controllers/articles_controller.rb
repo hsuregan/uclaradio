@@ -80,7 +80,7 @@ def create
 	@article = Article.new(article_params)
 
 	if (@article.save)
-		UserMailer.written_article.deliver	
+		#UserMailer.written_article.deliver	
 		@article.artist = @artist
 		@article.album = @album
 		@article.save
@@ -134,7 +134,7 @@ def approve
 		if (session[:user_id])
 			@article.approval = true;
 			@article.save
-			UserMailer.article_email(@article.email).deliver
+			#UserMailer.article_email(@article.email).deliver
 			redirect_to root_path, notice: 'Article is Online'
 		else
 			redirect_to @article, notice: "No Access Rights"

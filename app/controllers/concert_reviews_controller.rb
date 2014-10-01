@@ -28,7 +28,7 @@ def create
 	@concertreview = ConcertReview.new(concertreview_params)
 
 	if (@concertreview.save)
-		UserMailer.written_article.deliver	
+		#UserMailer.written_article.deliver	
 		@concertreview.artist = @artist
 		@concertreview.save
 		redirect_to root_path, notice: 'Your Article is Pending for Review.  An email will be conveyed if we think it is right for our site!'
@@ -47,7 +47,7 @@ def approve
 		if (session[:user_id])
 			@concertreview.approval = true;
 			@concertreview.save
-			UserMailer.article_email(@concertreview.email).deliver
+			#UserMailer.article_email(@concertreview.email).deliver
 			redirect_to root_path, notice: 'Article is Online'
 		else
 			redirect_to @article, notice: "No Access Rights"
